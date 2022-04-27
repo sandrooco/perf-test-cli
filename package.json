@@ -1,0 +1,37 @@
+{
+  "name": "sandrooco.perf-test-cli",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "A CLI app that lets you perform artillery.io tests against your API",
+  "main": "./lib/index.js",
+  "bin": {
+    "perf-test": "./lib/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sandrooco/perf-test-cli"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc -p ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "artillery": "^2.0.0-14",
+    "chalk": "^5.0.1",
+    "chalk-animation": "^2.0.2",
+    "commander": "^9.2.0",
+    "date-fns": "^2.28.0",
+    "inquirer": "^8.2.3",
+    "shelljs": "^0.8.5"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^8.2.1",
+    "@types/node": "^17.0.29",
+    "@types/shelljs": "^0.8.11",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  }
+}
