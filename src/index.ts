@@ -10,7 +10,7 @@ const askEnvironment = async (): Promise<string> => {
   const res: { askEnvironment: string } = await inquirer.prompt({
     name: 'askEnvironment',
     type: 'list',
-    message: 'What enivornment do you want to run the test against?\n',
+    message: 'What environment do you want to run the test against?\n',
     choices: ['dev', 'int'],
   });
 
@@ -61,15 +61,14 @@ try {
     shelljs.mkdir('-p', options.outputLocation);
 
     // Copy report to requested ouput location
-    shelljs.mv(
-      '-f',
-      `${reportName}.html`,
-      `${options.outputLocation}/${env.toUpperCase()}-performance-test-${format(
-        new Date(),
-        'yyyy.MM.dd-hh:mm'
-      )}.html`
-    );
-    console.log(chalk.green(`All done!`));
+    const targetFile = `${
+      options.outputLocation
+    }/${env.toUpperCase()}-performance-test-${format(
+      new Date(),
+      'yyyy.MM.dd-hh:mm'
+    )}.html`;
+    shelljs.mv('-f', `${reportName}.html`, targetFile);
+    console.log(chalk.green(`All done! Report available at ${targetFile}`));
   }
 } catch (err) {
   console.log(chalk.redBright(`Error occured: `, err));

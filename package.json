@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "type": "module",
   "description": "A CLI app that lets you perform artillery.io tests against your API",
-  "main": "./lib/index.js",
+  "main": "./dist/index.js",
   "bin": {
-    "perf-test": "./lib/index.js"
+    "perf-test": "./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,6 @@
     "start": "ts-node src/index.ts",
     "build": "tsc -p ."
   },
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "artillery": "^2.0.0-14",
