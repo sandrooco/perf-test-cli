@@ -3,15 +3,17 @@
 import chalk from 'chalk';
 import { program } from 'commander';
 import { format } from 'date-fns';
+import fs from 'fs';
 import inquirer from 'inquirer';
+import yaml from 'js-yaml';
 import shelljs from 'shelljs';
 
-const askEnvironment = async (): Promise<string> => {
+const askEnvironment = async (availableEnvs: string[]): Promise<string> => {
   const res: { askEnvironment: string } = await inquirer.prompt({
     name: 'askEnvironment',
     type: 'list',
     message: 'What environment do you want to run the test against?\n',
-    choices: ['dev', 'int'],
+    choices: availableEnvs,
   });
 
   return res.askEnvironment;
@@ -37,7 +39,20 @@ console.clear();
 const options = getOptions();
 console.log(chalk.blue(`Using options "${JSON.stringify(options)}"`));
 
-const env = await askEnvironment();
+// Load artillery config file
+const artilleryConfig: { config: { environments: Record<string, unknown> } } =
+  yaml.load(fs.readFileSync(options.configPath, 'utf8')) as any;
+
+// Load envs from config
+const availableEnvs = Object.keys(artilleryConfig?.config?.environments);
+
+// Exit if no envs were found
+if (!availableEnvs || !availableEnvs.length) {
+  console.log(chalk.redBright(`no valid envs detected: `, availableEnvs));
+  shelljs.exit(-1);
+}
+
+const env = await askEnvironment(availableEnvs);
 console.log(chalk.blue(`Starting performance test with environment "${env}".`));
 
 const reportName = 'report.json';
