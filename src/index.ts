@@ -36,7 +36,10 @@ const getOptions = (): { configPath: string; outputLocation: string } => {
 };
 console.clear();
 
+// Prepare configs and arguments
+const reportName = 'report.json';
 const options = getOptions();
+
 console.log(chalk.blue(`Using options "${JSON.stringify(options)}"`));
 
 // Load artillery config file
@@ -54,8 +57,6 @@ if (!availableEnvs || !availableEnvs.length) {
 
 const env = await askEnvironment(availableEnvs);
 console.log(chalk.blue(`Starting performance test with environment "${env}".`));
-
-const reportName = 'report.json';
 
 console.log(chalk.blue(`"${reportName}".`, options.outputLocation));
 
@@ -80,7 +81,7 @@ try {
       options.outputLocation
     }/${env.toUpperCase()}-performance-test-${format(
       new Date(),
-      'yyyy.MM.dd-hh:mm'
+      'yyyy.MM.dd-HH:mm'
     )}.html`;
     shelljs.mv('-f', `${reportName}.html`, targetFile);
     console.log(chalk.green(`All done! Report available at ${targetFile}`));
