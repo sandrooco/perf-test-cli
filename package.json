@@ -34,7 +34,7 @@
     "@types/shelljs": "0.8.11",
     "@typescript-eslint/eslint-plugin": "5.38.1",
     "@typescript-eslint/parser": "5.38.1",
-    "eslint": "8.24.0",
+    "eslint": "8.27.0",
     "eslint-config-prettier": "8.5.0",
     "nodemon": "2.0.20",
     "ts-node": "10.9.1",
